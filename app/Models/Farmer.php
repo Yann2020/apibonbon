@@ -47,4 +47,9 @@ class Farmer extends Model
     {
         return $this->hasMany(HealthSchedule::class);
     }
+
+    public function slaughter()
+    {
+        return $this->hasMany(Slaughters::class);
+    }
 }

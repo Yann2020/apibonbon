@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BatchesHealtSchedules extends Migration
+class BatchesSlaughters extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class BatchesHealtSchedules extends Migration
      */
     public function up()
     {
-        Schema::create('batches_health_schedules', function (Blueprint $table) {
+        Schema::create('batches_slaughters', function (Blueprint $table) {
             $table->integer("batche_id");
-            $table->integer("health_schedule_id");
+            $table->integer("slaughter_id");
         });
     }
 
@@ -26,6 +26,6 @@ class BatchesHealtSchedules extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('batches_health_schedules');
+        Schema::dropIfExists('batches_slaughters');
     }
 }

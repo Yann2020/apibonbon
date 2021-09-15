@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class Batche extends Model
 {
@@ -50,4 +51,8 @@ class Batche extends Model
         return $this->belongsToMany(StockItemsToSale::class,"batches_stock_items_to_sales","batche_id","stock_items_to_sale");
     }
 
+    public function slaughter()
+    {
+        return $this->belongsToMany(Slaughters::class);
+    }
 }

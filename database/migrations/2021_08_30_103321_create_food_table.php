@@ -17,7 +17,7 @@ class CreateFoodTable extends Migration
             $table->increments("id");
             $table->string("food_name");
             $table->integer("admin_id")->index();
-            $table->foreign("admin_id")->references("id")->on("admins")->onDelete("casca");
+            $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->timestamps();
         });
     }

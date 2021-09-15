@@ -43,7 +43,7 @@ class ExpensesController extends Controller
      */
     public function show(Expenses $expenses)
     {
-        return response()->json($expenses->with("admin"));
+        return response()->json($expenses->with("admin")->firstOrFail());
     }
 
     /**

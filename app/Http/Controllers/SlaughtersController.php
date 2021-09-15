@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StockItemsToSale;
+use App\Models\Slaughters;
 use Illuminate\Http\Request;
 
-class StockItemsToSaleController extends Controller
+class SlaughtersController extends Controller
 {
 
     const SUCCESS = ["status" => "success"];
@@ -18,7 +18,7 @@ class StockItemsToSaleController extends Controller
      */
     public function index()
     {
-        return response()->json(StockItemsToSale::orderByDesc("created_at")->get());
+        return response()->json(Slaughters::orderByDesc("created_at")->get());
     }
 
     /**
@@ -29,7 +29,7 @@ class StockItemsToSaleController extends Controller
      */
     public function store(Request $request)
     {
-        if(StockItemsToSale::create($request->all()))
+        if(Slaughters::create($request->all()))
             return response()->json(self::SUCCESS);
         return response()->json(self::FAILURE);
     }
@@ -37,24 +37,25 @@ class StockItemsToSaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\StockItemsToSale  $stockItemsToSale
+     * @param  \App\Models\Slaughters  $slaughters
      * @return \Illuminate\Http\Response
      */
-    public function show(StockItemsToSale $stockItemsToSale)
+    public function show(Slaughters $slaughters)
     {
-        return response()->json($stockItemsToSale->with("itemsToSale","farmer","slaughter")->first());
+        $slaughters = $slaughters->with("farmer","batche")->firstOrFail();
+        return response()->json($slaughters);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StockItemsToSale  $stockItemsToSale
+     * @param  \App\Models\Slaughters  $slaughters
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StockItemsToSale $stockItemsToSale)
+    public function update(Request $request, Slaughters $slaughters)
     {
-        if($stockItemsToSale->update($request->all()))
+        if($slaughters->update($request->all()))
             return response()->json(self::SUCCESS);
         return response()->json(self::FAILURE);
     }
@@ -62,11 +63,11 @@ class StockItemsToSaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StockItemsToSale  $stockItemsToSale
+     * @param  \App\Models\Slaughters  $slaughters
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StockItemsToSale $stockItemsToSale)
+    public function destroy(Slaughters $slaughters)
     {
-        return ($stockItemsToSale->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
+        return ($slaughters->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

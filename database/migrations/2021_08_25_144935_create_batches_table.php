@@ -23,7 +23,7 @@ class CreateBatchesTable extends Migration
             $table->integer("total");
             $table->integer("cost_per_animal"); # this represent the unit purchase cost by animal  
             $table->string("supplier",255);
-            $table->text("description")->nullable()->default("Hi, i'm a farmer ...");
+            $table->text("description")->nullable()->default("Hi, i am a farmer ...");
             #$table->string("status",200);  can be active or disable 
             $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->foreign("breed_id")->references("id")->on("breeds")->onDelete("cascade");

@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "file" : ["app/Helpers/Timer.php"]
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",
             "database/factories"
-        ]
+        ],
+        "files" : ["app/Helpers/Timer.php"]
     },
     "autoload-dev": {
         "psr-4": {

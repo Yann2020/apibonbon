@@ -56,7 +56,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return response()->json($account->get());
+        return response()->json($account->first());
     }
 
     /**

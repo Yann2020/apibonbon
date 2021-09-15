@@ -14,7 +14,7 @@ class BatcheController extends Controller
      */
     public function index()
     {
-        $batches = Batche::with("admin","specie","breed","itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale")->orderByDesc("created_at")->get();
+        $batches = Batche::with("specie","breed","mortalities","healtSchedule")->orderByDesc("created_at")->get();
     }
 
     /**
@@ -38,7 +38,7 @@ class BatcheController extends Controller
      */
     public function show(Batche $batche)
     {
-        $batche = $batche->with("admin","specie","breed","itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale");
+        $batche = $batche->with("admin","specie","breed","itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale","slaughter")->firstOrFail();
         return response()->json($batche);
     }
 

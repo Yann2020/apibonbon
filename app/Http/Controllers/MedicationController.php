@@ -42,7 +42,7 @@ class MedicationController extends Controller
      */
     public function show(Medication $medication)
     {
-        $healthSchedule = HealthSchedule::find($medication)->with("farmer","disease","status_schedule","batches")->firstOrfail();
+        $healthSchedule = HealthSchedule::find($medication)->with("farmer","disease","status_schedule","batches")->first();
         $medication = $medication->first();
         $medication = array_merge($healthSchedule,$medication);
         return response()->json($medication);

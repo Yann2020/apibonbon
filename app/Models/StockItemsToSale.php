@@ -22,4 +22,9 @@ class StockItemsToSale extends Model
     {
         return $this->belongsTo(Farmer::class);
     }
+
+    public function slaughter()
+    {
+        return $this->hasMany(Slaughters::class);
+    }
 }
