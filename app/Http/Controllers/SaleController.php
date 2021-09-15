@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Sale::orderByDesc("created_at")->get());
     }
 
     /**
@@ -25,7 +28,9 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Sale::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +41,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return response()->json($sale->with("admin","itemsToSale")->first());
     }
 
     /**
@@ -48,7 +53,9 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        //
+        if($sale->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +66,6 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        return ($sale->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

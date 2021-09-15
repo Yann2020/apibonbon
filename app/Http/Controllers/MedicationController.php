@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HealthSchedule;
 use App\Models\Medication;
 use Illuminate\Http\Request;
 
 class MedicationController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class MedicationController extends Controller
      */
     public function index()
     {
-        //
+        $medication = HealthSchedule::where("type","medication")->orderByDesc("created_at")->get();
+        return response()->json($medication);
     }
 
     /**
@@ -25,7 +31,7 @@ class MedicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return app(HealthScheduleController::class)->store($request);
     }
 
     /**
@@ -36,7 +42,10 @@ class MedicationController extends Controller
      */
     public function show(Medication $medication)
     {
-        //
+        $healthSchedule = HealthSchedule::find($medication)->with("farmer","disease","status_schedule","batches")->firstOrfail();
+        $medication = $medication->first();
+        $medication = array_merge($healthSchedule,$medication);
+        return response()->json($medication);
     }
 
     /**
@@ -48,7 +57,7 @@ class MedicationController extends Controller
      */
     public function update(Request $request, Medication $medication)
     {
-        //
+        return app(HealthScheduleController::class)->update($request, HealthSchedule::class);
     }
 
     /**
@@ -59,6 +68,6 @@ class MedicationController extends Controller
      */
     public function destroy(Medication $medication)
     {
-        //
+        return ($medication->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

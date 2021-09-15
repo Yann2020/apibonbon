@@ -35,7 +35,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "file" : ["app/Helpers/Timer.php"]
         },
         "classmap": [
             "database/seeds",

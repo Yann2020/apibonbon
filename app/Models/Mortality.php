@@ -12,7 +12,7 @@ class Mortality extends Model
 
     public function farmer()
     {
-        return $this->BelongsTo(Farmer::class);
+        return $this->belongsTo(Farmer::class);
     }
 
     public function batche()

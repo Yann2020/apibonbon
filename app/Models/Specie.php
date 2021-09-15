@@ -8,20 +8,22 @@ class Specie extends Model
 {
     protected $fillable = ["id","name","admin_id"];
 
-    public function isManaged ()
+    public function farmer ()
     {
         return $this->belongsTo(Farmer::class);
     }
 
-    public function createdBy()
+    public function admin()
     {
         return $this->belongsTo(Admin::class);
     }
 
-    public function healthSchedule()
-    {
-        return $this->hasMany(HealthSchedule::class);
-    }
+    /*
+        public function healthSchedule()
+        {
+            return $this->hasMany(HealthSchedule::class);
+        }
+    */
 
     public function batches()
     {

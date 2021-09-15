@@ -20,6 +20,6 @@ class Food extends Model
 
     public function itemsToTake()
     {
-        return $this->belongsToMany(ItemsToTake::class,"items_foods","food_id","items_to_take_id");
+        return $this->hasOne(ItemsToTake::class);
     }
 }

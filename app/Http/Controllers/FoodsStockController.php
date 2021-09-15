@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class FoodsStockController extends Controller
 {
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,8 @@ class FoodsStockController extends Controller
      */
     public function index()
     {
-        //
+        $foodsStock = FoodsStock::with("admin","food","foodTye")->orderByDesc("created_at")->get();
+        return response()->json($foodsStock,200);
     }
 
     /**
@@ -25,7 +29,9 @@ class FoodsStockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(FoodsStock::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +42,8 @@ class FoodsStockController extends Controller
      */
     public function show(FoodsStock $foodsStock)
     {
-        //
+        $foodsStock = $foodsStock->with("admin","foodType","food")->first();
+        return response()->json($foodsStock);
     }
 
     /**
@@ -48,7 +55,9 @@ class FoodsStockController extends Controller
      */
     public function update(Request $request, FoodsStock $foodsStock)
     {
-        //
+        if($foodsStock->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +68,6 @@ class FoodsStockController extends Controller
      */
     public function destroy(FoodsStock $foodsStock)
     {
-        //
+        return ($foodsStock->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

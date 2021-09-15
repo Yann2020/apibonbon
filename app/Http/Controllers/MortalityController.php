@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class MortalityController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class MortalityController extends Controller
      */
     public function index()
     {
-        //
+        $mortality = Mortality::with("farmer","batche")->orderByDesc("created_at")->get();
+        return response()->json($mortality);
     }
 
     /**
@@ -25,7 +30,9 @@ class MortalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Mortality::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +43,7 @@ class MortalityController extends Controller
      */
     public function show(Mortality $mortality)
     {
-        //
+        return response()->json($mortality->with("farmer","batche")->first());
     }
 
     /**
@@ -48,7 +55,9 @@ class MortalityController extends Controller
      */
     public function update(Request $request, Mortality $mortality)
     {
-        //
+        if($mortality->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +68,6 @@ class MortalityController extends Controller
      */
     public function destroy(Mortality $mortality)
     {
-        //
+        return ($mortality->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

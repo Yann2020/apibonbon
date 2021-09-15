@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class FoodsTypeController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class FoodsTypeController extends Controller
      */
     public function index()
     {
-        //
+        $foodsType = FoodsType::get();
+        return response()->json($foodsType);
     }
 
     /**
@@ -25,7 +30,9 @@ class FoodsTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(FoodsType::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +43,7 @@ class FoodsTypeController extends Controller
      */
     public function show(FoodsType $foodsType)
     {
-        //
+        return response()->json($foodsType->first());
     }
 
     /**
@@ -48,7 +55,9 @@ class FoodsTypeController extends Controller
      */
     public function update(Request $request, FoodsType $foodsType)
     {
-        //
+        if($foodsType->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +68,6 @@ class FoodsTypeController extends Controller
      */
     public function destroy(FoodsType $foodsType)
     {
-        //
+        return ($foodsType->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

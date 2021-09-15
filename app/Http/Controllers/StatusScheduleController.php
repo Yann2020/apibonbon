@@ -5,8 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\StatusSchedule;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\returnSelf;
+
 class StatusScheduleController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class StatusScheduleController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(StatusSchedule::get());
     }
 
     /**
@@ -25,7 +31,9 @@ class StatusScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(StatusSchedule::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +44,7 @@ class StatusScheduleController extends Controller
      */
     public function show(StatusSchedule $statusSchedule)
     {
-        //
+        return response()->json($statusSchedule->with("admin","healthSchedule")->first());
     }
 
     /**
@@ -48,7 +56,9 @@ class StatusScheduleController extends Controller
      */
     public function update(Request $request, StatusSchedule $statusSchedule)
     {
-        //
+        if($statusSchedule->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +69,6 @@ class StatusScheduleController extends Controller
      */
     public function destroy(StatusSchedule $statusSchedule)
     {
-        //
+        return ($statusSchedule->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

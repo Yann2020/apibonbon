@@ -17,6 +17,7 @@ class CreateHealthSchedulesTable extends Migration
             $table->increments("id");
             $table->text("description");
             $table->string("specie_name",255);
+            $table->string("type",200);
             $table->integer("farmer_id")->index();
             $table->integer("disease_id")->index();
             $table->integer("status_schedule_id")->index();

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ItemsToTakeController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class ItemsToTakeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(ItemsToTake::orderByDesc()->get());
     }
 
     /**
@@ -25,7 +29,11 @@ class ItemsToTakeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /**
+         * PROBLEMES :
+         * il faudra créer une boucle de création des éléments au cas ou le fermier veut prendre plusieurs aliments
+         * il faudra aussi ceéer une autre boucle pour l'enregistrement dans la table pivot 
+         */
     }
 
     /**
@@ -36,7 +44,8 @@ class ItemsToTakeController extends Controller
      */
     public function show(ItemsToTake $itemsToTake)
     {
-        //
+        $itemsToTake = ItemsToTake::with("farmer","foods","batches")->firstOrFail();
+        return response()->json($itemsToTake);
     }
 
     /**
@@ -59,6 +68,6 @@ class ItemsToTakeController extends Controller
      */
     public function destroy(ItemsToTake $itemsToTake)
     {
-        //
+        return ($itemsToTake->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

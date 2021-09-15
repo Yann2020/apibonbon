@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HealthSchedule;
 use App\Models\Vaccination;
 use Illuminate\Http\Request;
 
 class VaccinationController extends Controller
 {
+
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class VaccinationController extends Controller
      */
     public function index()
     {
-        //
+        $vaccination = HealthSchedule::where("type","vaccination")->orderByDesc("created_at")->get();
+        return response()->json($vaccination);
     }
 
     /**
@@ -25,7 +31,7 @@ class VaccinationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return app(HealthSchedule::class)->store($request);
     }
 
     /**
@@ -36,7 +42,10 @@ class VaccinationController extends Controller
      */
     public function show(Vaccination $vaccination)
     {
-        //
+        $healthSchedule = HealthSchedule::find($vaccination->id)->with("farmer","disease","status_schedule","batches")->first();
+        $vaccination = $vaccination->first();
+        $vaccination = array_merge($healthSchedule,$vaccination);
+        return response()->json($vaccination);
     }
 
     /**
@@ -48,7 +57,7 @@ class VaccinationController extends Controller
      */
     public function update(Request $request, Vaccination $vaccination)
     {
-        //
+        return app(HealthSchedule::class)->update($request,HealthSchedule::class);
     }
 
     /**
@@ -59,6 +68,6 @@ class VaccinationController extends Controller
      */
     public function destroy(Vaccination $vaccination)
     {
-        //
+        return ($vaccination->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

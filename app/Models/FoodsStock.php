@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FoodsStock extends Model
 {
-    protected $fillable = ["id","quantity","cost","description","foods_type_id","admin_id"];
+    protected $fillable = ["id","quantity","cost","description","foods_type_id","food_id","admin_id"];
 
     public function admin()
     {

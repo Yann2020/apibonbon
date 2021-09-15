@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class SpecieController extends Controller
 {
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class SpecieController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Specie::get());
     }
 
     /**
@@ -25,7 +28,9 @@ class SpecieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Specie::create($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -36,7 +41,8 @@ class SpecieController extends Controller
      */
     public function show(Specie $specie)
     {
-        //
+        $specie = $specie->with("farmer","admin","batches","itemsToSale")->first();
+        return response()->json($specie);
     }
 
     /**
@@ -48,7 +54,9 @@ class SpecieController extends Controller
      */
     public function update(Request $request, Specie $specie)
     {
-        //
+        if($specie->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +67,6 @@ class SpecieController extends Controller
      */
     public function destroy(Specie $specie)
     {
-        //
+        return ($specie->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\HealthSchedule;
+use App\Models\Medication;
+use App\Models\Vaccination;
 use Illuminate\Http\Request;
 
 class HealthScheduleController extends Controller
 {
+    const SUCCESS = ["status" => "success"];
+    const FAILURE = ["status" => "success"];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class HealthScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $healthSchedule = HealthSchedule::with("farmer","disease","status_schedule")->get();
+        return response()->json($healthSchedule);
     }
 
     /**
@@ -25,7 +31,32 @@ class HealthScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /**
+         * il faudra créer une boucle d'exécution pour la table pivot 
+         */
+        if(HealthSchedule::create($request->all()))
+            $healthSchedule = HealthSchedule::latest()->firstOrfail();
+            if($request->input("type") == "vaccination"):
+                Vaccination::create([
+                    "id" => $healthSchedule->id,
+                    "name" => $request->input("name"),
+                    "animal_numbers" => $request->input("animal_numbers"),
+                    "vaccinated_by" => $request->input("vaccinated_by")
+                ]);
+            elseif($request->input("type") == "medication"):
+                Medication::create([
+                    "id" => $healthSchedule->id,
+                    "name" => $request->input("name"),
+                    "animal_numbers" => $request->input("animal_numbers"),
+                    "medicated_by" => $request->input("medicated_by") 
+                ]);
+            endif;
+
+            return response()->json(self::SUCCESS);
+        return response()->jsonp(self::FAILURE);
+
+        
+        
     }
 
     /**
@@ -36,7 +67,17 @@ class HealthScheduleController extends Controller
      */
     public function show(HealthSchedule $healthSchedule)
     {
-        //
+        $healthSchedule = $healthSchedule->with("farmer,disease","status_schedule","batches")->first();
+
+        if($healthSchedule->type == "vaccination"){
+            $vaccination = Vaccination::find($healthSchedule->id)->firstOrfail();
+            $healthSchedule.array_push($vaccination);
+        }
+        else{
+            $medication = Medication::find($healthSchedule->id)->firstOrfail();
+            $healthSchedule.array_push($medication);
+        }
+        return response()->json($healthSchedule);
     }
 
     /**
@@ -48,7 +89,9 @@ class HealthScheduleController extends Controller
      */
     public function update(Request $request, HealthSchedule $healthSchedule)
     {
-        //
+        if($healthSchedule->update($request->all()))
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
@@ -59,6 +102,6 @@ class HealthScheduleController extends Controller
      */
     public function destroy(HealthSchedule $healthSchedule)
     {
-        //
+        return ($healthSchedule->delete()) ? response()->json(self::SUCCESS) : response()->json(self::FAILURE);
     }
 }

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class HealthSchedule extends Model
 {
-    protected $fillable = ["id","description","specie_name","farmer_id","disease_id","status_schedule_id","scheduled_at"];
+    protected $fillable = ["id","description","specie_name","type","farmer_id","disease_id","status_schedule_id","scheduled_at"];
 
     public function farmer()
     {
         return $this->belongsTo(Farmer::class);
     }
 
-    public function Disease()
+    public function disease()
     {
         return $this->belongsTo(Disease::class);
     }

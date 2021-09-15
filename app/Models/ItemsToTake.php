@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemsToTake extends Model
 {
-    protected $fillable = ["id","total_take","specie_name","farmer_id"];
+    protected $fillable = ["id","total_take","specie_name","food_id","farmer_id"];
 
     public function farmer()
     {
@@ -15,7 +15,7 @@ class ItemsToTake extends Model
 
     public function foods()
     {
-        return $this->belongsToMany(Food::class,"foods_items","items_to_take_id","specie_name","farmer_id");
+        return $this->belongsTo(Food::class);
     }
 
     public function batches()
