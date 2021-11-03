@@ -15,7 +15,7 @@ class CreateFarmersTable extends Migration
     {
         Schema::create('farmers', function (Blueprint $table) {
             $table->integer("id")->primary();
-            $table->integer("admin_id")->index();
+            $table->integer("admin_id")->unsigned()->index();
             $table->integer("specie_id")->unsigned()->index();
             $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->foreign("specie_id")->references("id")->on("species")->onDelete("cascade");
