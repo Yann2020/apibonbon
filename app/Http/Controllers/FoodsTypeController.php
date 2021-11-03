@@ -43,7 +43,7 @@ class FoodsTypeController extends Controller
      */
     public function show(FoodsType $foodsType)
     {
-        return response()->json($foodsType->first());
+        return response()->json($foodsType->findOrFail($foodsType->id));
     }
 
     /**

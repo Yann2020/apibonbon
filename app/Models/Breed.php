@@ -10,7 +10,7 @@ class Breed extends Model
 
     public function batche ()
     {
-        return $this->belongsTo(Batche::class);
+        return $this->hasMany(Batche::class);
     }
 
     public function admin()

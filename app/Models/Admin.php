@@ -13,6 +13,11 @@ class Admin extends Model
         return $this->hasMany(Farmer::class);
     }
 
+    public function supplier()
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
     public function species ()
     {
         return $this->hasMany(Specie::class);

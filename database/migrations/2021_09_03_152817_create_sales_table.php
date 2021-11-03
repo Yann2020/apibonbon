@@ -17,9 +17,9 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->increments("id");
             $table->integer("quantity");
-            $table->integer("earn");
+            $table->float("earn");
             $table->string("customer_name",255);
-            $table->text("description")->nullable()->default(null);
+            $table->text("description")->nullable();
             $table->string("specie_name",255);
             $table->integer("admin_id")->index();
             $table->foreign("admin_id")->references("id")->on("admins");

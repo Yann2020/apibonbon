@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Admin;
 use App\Models\Farmer;
 use Illuminate\Http\Request;
+use User;
 
 class AccountController extends Controller
 {
@@ -56,7 +57,10 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return response()->json($account->first());
+        // $user = new User;
+        // return dd($user->isDeleted($account));
+
+        return response()->json($account->find($account->id));
     }
 
     /**
@@ -83,6 +87,11 @@ class AccountController extends Controller
     public function destroy(int $id)
     {
         $account = Account::find($id)->first();
+        /*
+         * Change the state of the spefied resource from storage.
+         * 
+            return ($account->update(["deleted" => 1]) ? response()->json(["status" => "success"]) : response()->json(["status" => "failure"]) );
+        */
         return ($account->delete()) ? response()->json(["status"=>"deleted"]) : response()->json(["status"=>"fail"]);
 
     }

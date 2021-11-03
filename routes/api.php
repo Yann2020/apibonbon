@@ -22,5 +22,22 @@ Route::apiResources([
     "admin" => "AdminController",
     "farmer" => "FarmerController",
     "batche" => "BatcheController",
-    "breed" => "BreedController"
+    "breed" => "BreedController",
+    "disease" => "DiseaseController",
+    "expense" => "ExpensesController",
+    "food" => "FoodController",
+    "foodStock" => "FoodsStockController",
+    "foodType" => "FoodsTypeController",
+    "healthSchedule" => "HealthScheduleController",
+    "itemsToSale" => "ItemsToSaleController",
+    "itemsToTake" => "ItemsToTakeController",
+    "medication" => "MedicationController",
+    "mortality" => "MortalityController",
+    "sale" => "SaleController",
+    "slaughter" => "SlaughtersController",
+    "specie" => "SpecieController",
+    "stateSchedule" => "StatusScheduleController",
+    "stockItemsToSale" => "StockItemsToSaleController",
+    "vaccination" => "VaccinationController",
+    "avgAnimalWeight" => "AvgAnimalWeightController"
 ]);

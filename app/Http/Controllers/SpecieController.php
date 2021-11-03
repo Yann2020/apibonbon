@@ -41,7 +41,7 @@ class SpecieController extends Controller
      */
     public function show(Specie $specie)
     {
-        $specie = $specie->with("farmer","admin","batches","itemsToSale")->first();
+        $specie = $specie->with("farmer","admin","batches","itemsToSale")->find($specie->id);
         return response()->json($specie);
     }
 

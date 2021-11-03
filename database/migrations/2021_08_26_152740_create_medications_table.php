@@ -18,6 +18,7 @@ class CreateMedicationsTable extends Migration
             $table->string("name",255);
             $table->integer("animals_number");
             $table->string("medicated_by",255);
+            $table->timestamps();
         });
     }
 

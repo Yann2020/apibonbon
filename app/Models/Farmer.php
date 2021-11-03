@@ -15,7 +15,7 @@ class Farmer extends Model
 
     public function specie ()
     {
-        return $this->hasOne(Specie::class);
+        return $this->belongsTo(Specie::class);
     }
 
     public function disease()

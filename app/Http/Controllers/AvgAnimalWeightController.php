@@ -31,7 +31,8 @@ class AvgAnimalWeightController extends Controller
         if(AvgAnimalWeight::create([
             "max_animal_weight" => $request->input("max_animal_weight"),
             "min_animal_weight" => $request->input("min_animal_weight"),
-            "species_name" => $overallAverage,
+            "species_name" => $request->input("species_name"),
+            "overall_average" => $overallAverage,
             "batche_id" => $request->input("batche_id"),
             "farmer_id" => $request->input("farmer_id")
         ]))
@@ -49,7 +50,7 @@ class AvgAnimalWeightController extends Controller
      */
     public function show(AvgAnimalWeight $avgAnimalWeight)
     {
-        return response()->json($avgAnimalWeight->with("batche","farmer")->first());
+        return response()->json($avgAnimalWeight->with("batche","farmer")->find($avgAnimalWeight->id));
     }
 
     /**

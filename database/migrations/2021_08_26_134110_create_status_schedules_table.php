@@ -17,7 +17,8 @@ class CreateStatusSchedulesTable extends Migration
             $table->increments("id");
             $table->string("title");
             $table->integer("admin_id")->index();
-            $table->foreign("admin_id")->references("id")->on("Admins")->onDelete("cascade");
+            $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
+            $table->timestamps();
         });
     }
 

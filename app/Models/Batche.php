@@ -8,7 +8,7 @@ use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class Batche extends Model
 {
-    protected $fillable = ["id","name","admin_id","breed_id","specie_id","total","cost_per_animal","supplier","description"];
+    protected $fillable = ["id","name","admin_id","breed_id","specie_id","total","cost_per_animal","description","supplier_id","deleted"];
 
     public function admin ()
     {
@@ -22,7 +22,7 @@ class Batche extends Model
 
     public function breed ()
     {
-        return $this->hasMany(Breed::class);
+        return $this->belongsTo(Breed::class);
     }
     
 
@@ -54,5 +54,10 @@ class Batche extends Model
     public function slaughter()
     {
         return $this->belongsToMany(Slaughters::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

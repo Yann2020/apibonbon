@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Farmer;
+use Exception;
 use Illuminate\Http\Request;
 
 class FarmerController extends Controller
@@ -15,7 +16,7 @@ class FarmerController extends Controller
      */
     public function index()
     {
-        $farmer = Account::where("type","farmer")->with("admin","specie","disease","mortality","itemsToTake","avgAnimalWeight","stockItemsToSale")->orderByDesc("created_at")->get();
+        $farmer = Account::where("type","farmer")->orderByDesc("created_at")->get();
         return response()->json($farmer,200);
     }
 
@@ -38,8 +39,16 @@ class FarmerController extends Controller
      */
     public function show(int $id)
     {
-        $farmer = Account::find($id)->with("admin","managed","disease","mortality","itemsToTake","avgAnimalWeight","stockItemsToSale")->first();
-        return response()->json($farmer);
+        try{
+            $farmer = Account::where("id",$id)->first();
+            $farmerWithRelation = Farmer::with("admin","specie")->findOrFail($farmer->id);
+            $data = array($farmer, $farmerWithRelation);
+            return response()->json($data);
+        }
+        catch(Exception $e)
+        {
+            return $e->getMessage();
+        }
     }
 
     /**

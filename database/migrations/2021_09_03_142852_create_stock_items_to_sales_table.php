@@ -16,7 +16,7 @@ class CreateStockItemsToSalesTable extends Migration
         Schema::create('stock_items_to_sales', function (Blueprint $table) {
             $table->increments("id");
             $table->float("quantity");
-            $table->integer("items_to_sale_id");
+            $table->integer("items_to_sale_id")->unsigned()->index();
             $table->integer("farmer_id")->index();
             $table->foreign("items_to_sale_id")->references("id")->on("items_to_sales")->onDelete("cascade");
             $table->foreign("farmer_id")->references("id")->on("farmers");

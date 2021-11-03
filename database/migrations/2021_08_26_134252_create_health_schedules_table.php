@@ -19,8 +19,8 @@ class CreateHealthSchedulesTable extends Migration
             $table->string("specie_name",255);
             $table->string("type",200);
             $table->integer("farmer_id")->index();
-            $table->integer("disease_id")->index();
-            $table->integer("status_schedule_id")->index();
+            $table->integer("disease_id")->unsigned()->index();
+            $table->integer("status_schedule_id")->unsigned()->index();
             $table->foreign("farmer_id")->references("id")->on("farmers")->onDelete("cascade");
             $table->foreign("disease_id")->references("id")->on("diseases")->onDelete("cascade");
             $table->foreign("status_schedule_id")->references("id")->on("status_schedules")->onDelete("cascade");

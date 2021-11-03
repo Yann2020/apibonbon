@@ -18,16 +18,19 @@ class CreateBatchesTable extends Migration
             $table->increments("id");
             $table->string("name",255);
             $table->integer("admin_id")->index();
-            $table->integer("breed_id")->index();
-            $table->integer("specie_id")->index();
+            $table->integer("breed_id")->unsigned()->index();
+            $table->integer("specie_id")->unsigned()->index();
             $table->integer("total");
             $table->integer("cost_per_animal"); # this represent the unit purchase cost by animal  
             $table->string("supplier",255);
-            $table->text("description")->nullable()->default("Hi, i am a farmer ...");
+            $table->text("description")->nullable();
+            $table->integer("supplier_id")->unsigned()->index();
             #$table->string("status",200);  can be active or disable 
             $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->foreign("breed_id")->references("id")->on("breeds")->onDelete("cascade");
             $table->foreign("specie_id")->references("id")->on("species")->onDelete("cascade");
+            $table->foreign("supplier_id")->references("id")->on("suppliers");
+            $table->integer("deleted")->nullable()->default("0");
             $table->timestamps();
         });
     }

@@ -44,7 +44,7 @@ class StatusScheduleController extends Controller
      */
     public function show(StatusSchedule $statusSchedule)
     {
-        return response()->json($statusSchedule->with("admin","healthSchedule")->first());
+        return response()->json($statusSchedule->with("admin","healthSchedule")->find($statusSchedule->id));
     }
 
     /**

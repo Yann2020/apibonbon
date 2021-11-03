@@ -18,7 +18,7 @@ class ItemsToSaleController extends Controller
      */
     public function index()
     {
-        $itemsToSale = ItemsToSale::with("stockItemsToSale")->orderByDesc("created_at")->get();
+        $itemsToSale = ItemsToSale::orderByDesc("created_at")->get(["id","name","cost_per_item","specie_id","admin_id"]);
         return response()->json($itemsToSale);
     }
 
@@ -43,7 +43,7 @@ class ItemsToSaleController extends Controller
      */
     public function show(ItemsToSale $itemsToSale)
     {
-        $itemsToSale = $itemsToSale->with("admin","specie","stockItemsToSale","sales")->first();
+        $itemsToSale = $itemsToSale->with("admin","specie","stockItemsToSale","sales")->find($itemsToSale->id);
         return response()->json($itemsToSale);
     }
 

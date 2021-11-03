@@ -15,9 +15,9 @@ class CreateSpeciesTable extends Migration
     {
         Schema::create('species', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("name",255);
-            $table->integer("farmer_id");
-            $table->foreign("farmer_id")->references("id")->on("farmers")->onDelete("cascade");
+            $table->string("name",255)->unique();
+            $table->integer("admin_id");
+            $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->timestamps();
         });
     }

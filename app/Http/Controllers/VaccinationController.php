@@ -42,10 +42,14 @@ class VaccinationController extends Controller
      */
     public function show(Vaccination $vaccination)
     {
-        $healthSchedule = HealthSchedule::find($vaccination->id)->with("farmer","disease","status_schedule","batches")->first();
-        $vaccination = $vaccination->first();
-        $vaccination = array_merge($healthSchedule,$vaccination);
-        return response()->json($vaccination);
+            $healthSchedule = HealthSchedule::with("farmer","disease","status_schedule","batches")->find($vaccination->id);
+            if($healthSchedule->type == "vaccination"):
+                $vaccination = $vaccination->find($vaccination->id);
+                $vaccination = array_merge(array($healthSchedule),array($vaccination));
+            else:
+                $vaccination = [];
+            endif;
+            return response()->json($vaccination);
     }
 
     /**

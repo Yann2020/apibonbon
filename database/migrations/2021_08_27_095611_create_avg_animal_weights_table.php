@@ -19,7 +19,7 @@ class CreateAvgAnimalWeightsTable extends Migration
             $table->float("min_animal_weight");
             $table->string("species_name");
             $table->float("overall_average");
-            $table->integer("batche_id")->index();
+            $table->integer("batche_id")->unsigned()->index();
             $table->integer("farmer_id")->index();
             $table->foreign("batche_id")->references("id")->on("batches")->onDelete("cascade");
             $table->foreign("farmer_id")->references("id")->on("farmers")->onDelete("cascade");

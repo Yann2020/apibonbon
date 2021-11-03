@@ -19,6 +19,7 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::with("admin","itemsToTake","foodStock")->orderByDesc("created_at")->get();
+        return response()->json($foods);
     }
 
     /**
@@ -42,7 +43,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        return response()->json($food->with("admin","itemsToTake","foodStock")->first());
+        return response()->json($food->with("admin","itemsToTake","foodStock")->findOrFail($food->id));
     }
 
     /**

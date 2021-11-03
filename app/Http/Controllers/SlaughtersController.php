@@ -29,6 +29,7 @@ class SlaughtersController extends Controller
      */
     public function store(Request $request)
     {
+        
         if(Slaughters::create($request->all()))
             return response()->json(self::SUCCESS);
         return response()->json(self::FAILURE);
@@ -42,7 +43,7 @@ class SlaughtersController extends Controller
      */
     public function show(Slaughters $slaughters)
     {
-        $slaughters = $slaughters->with("farmer","batche")->firstOrFail();
+        $slaughters = $slaughters->with("farmer","batche")->find($slaughters->id);
         return response()->json($slaughters);
     }
 

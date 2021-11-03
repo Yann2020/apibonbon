@@ -10,7 +10,7 @@ class Specie extends Model
 
     public function farmer ()
     {
-        return $this->belongsTo(Farmer::class);
+        return $this->hasOne(Farmer::class);
     }
 
     public function admin()

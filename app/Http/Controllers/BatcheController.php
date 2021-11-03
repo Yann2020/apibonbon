@@ -14,7 +14,8 @@ class BatcheController extends Controller
      */
     public function index()
     {
-        $batches = Batche::with("specie","breed","mortalities","healtSchedule")->orderByDesc("created_at")->get();
+        $batches = Batche::with("specie")->orderByDesc("created_at")->get();
+        return response()->json($batches);
     }
 
     /**
@@ -38,7 +39,8 @@ class BatcheController extends Controller
      */
     public function show(Batche $batche)
     {
-        $batche = $batche->with("admin","specie","breed","itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale","slaughter")->firstOrFail();
+        # to complete later within the with method (,"itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale","slaughter")
+        $batche = $batche->with("admin","specie","breed")->find($batche->id);
         return response()->json($batche);
     }
 
@@ -57,13 +59,14 @@ class BatcheController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Change the state of the specified resource from storage.
      *
      * @param  \App\Models\Batche  $batche
      * @return \Illuminate\Http\Response
      */
     public function destroy(Batche $batche)
     {
-        return ($batche->delete) ? response()->json(["status"=>"success"]) : response()->json(["status" => "failure"]);
+        return ($batche->update(["deleted" => 1]) ? response()->json(["status" => "success"]) : response()->json(["status" => "failure"]) );  
+        //return ($batche->delete) ? response()->json(["status"=>"success"]) : response()->json(["status" => "failure"]);
     }
 }

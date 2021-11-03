@@ -44,7 +44,7 @@ class ItemsToTakeController extends Controller
      */
     public function show(ItemsToTake $itemsToTake)
     {
-        $itemsToTake = ItemsToTake::with("farmer","foods","batches")->firstOrFail();
+        $itemsToTake = ItemsToTake::with("farmer","foods","batches")->find($itemsToTake->id);
         return response()->json($itemsToTake);
     }
 

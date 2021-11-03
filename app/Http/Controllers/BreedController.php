@@ -39,7 +39,7 @@ class BreedController extends Controller
      */
     public function show(Breed $breed)
     {
-        return response()->json($breed->with("batche","admin")->first());
+        return response()->json($breed->with("batche","admin")->find($breed->id));
     }
 
     /**

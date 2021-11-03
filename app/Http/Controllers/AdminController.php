@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = Account::where("type","admin")->with("farmer","species","batches","breeds","expenses","foods","foodsType","itemsToSale","sales")->orderByDesc("created_at")->get();
+        $admin = Account::where("type","admin")->orderByDesc("created_at")->get();
         return response()->json($admin,200);
     }
 
@@ -38,8 +38,13 @@ class AdminController extends Controller
      */
     public function show(int $id)
     {
-        $admin = Account::find($id)->with("farmer","species","batches","breeds","expenses","foods","foodsType","itemsToSale","sales")->first();
-        return response()->json($admin);
+        #return $id;
+        $accountInfo = Account::find($id)->first();
+        $admin = Admin::with("species","batches","breeds")->find($id);
+        #$data = [1 => $accountInfo];
+        #$data += ["relations" => $admin];
+        $data = array($accountInfo,$admin);
+        return response()->json($data);
     }
 
     /**

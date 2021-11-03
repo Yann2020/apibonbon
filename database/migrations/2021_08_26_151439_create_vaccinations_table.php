@@ -18,6 +18,7 @@ class CreateVaccinationsTable extends Migration
             $table->string("name",255);
             $table->integer("animal_numbers");
             $table->string("vaccinated_by",255);
+            $table->timestamps();
         });
     }
 

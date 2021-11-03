@@ -42,7 +42,7 @@ class StockItemsToSaleController extends Controller
      */
     public function show(StockItemsToSale $stockItemsToSale)
     {
-        return response()->json($stockItemsToSale->with("itemsToSale","farmer","slaughter")->first());
+        return response()->json($stockItemsToSale->with("itemsToSale","farmer","slaughter")->find($stockItemsToSale->id));
     }
 
     /**

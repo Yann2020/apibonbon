@@ -41,7 +41,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        return response()->json($sale->with("admin","itemsToSale")->first());
+        return response()->json($sale->with("admin","itemsToSale")->find($sale->id));
     }
 
     /**

@@ -18,7 +18,7 @@ class CreateItemsToSalesTable extends Migration
             $table->increments("id");
             $table->string("name")->unique();
             $table->integer("cost_per_item");
-            $table->integer("specie_id")->index();
+            $table->integer("specie_id")->unsigned()->index();
             $table->integer("admin_id")->index();
             $table->foreign("specie_id")->references("id")->on("species")->onDelete("cascade");
             $table->foreign("admin_id")->references("id")->on("admins");

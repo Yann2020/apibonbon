@@ -19,6 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string("email",255)->unique();
             $table->string("password",255);
             $table->string("type",100);
+            $table->integer("deleted")->nullable()->default("0");
             $table->timestamps();
         });
     }

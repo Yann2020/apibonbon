@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batche;
 use App\Models\Mortality;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,12 @@ class MortalityController extends Controller
      */
     public function store(Request $request)
     {
-        if(Mortality::create($request->all()))
+        $batche = Batche::find($request->input('batche_id'));
+        $totalReduction = (int)$request->input('number');
+        $totalReduction = (int)$batche->total < $totalReduction ? (int)$batche->totala - $totalReduction : '';
+
+        if(!empty($totalReduction) && Mortality::create($request->all()))
+            $batche->update(['total'=>$totalReduction]);
             return response()->json(self::SUCCESS);
         return response()->json(self::FAILURE);
     }
@@ -43,7 +49,7 @@ class MortalityController extends Controller
      */
     public function show(Mortality $mortality)
     {
-        return response()->json($mortality->with("farmer","batche")->first());
+        return response()->json($mortality->with("farmer","batche")->find($mortality->id));
     }
 
     /**

@@ -42,7 +42,7 @@ class FoodsStockController extends Controller
      */
     public function show(FoodsStock $foodsStock)
     {
-        $foodsStock = $foodsStock->with("admin","foodType","food")->first();
+        $foodsStock = $foodsStock->with("admin","foodType","food")->findOrFail($foodsStock->id);
         return response()->json($foodsStock);
     }
 

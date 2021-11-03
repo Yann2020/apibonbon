@@ -17,10 +17,10 @@ class CreateItemsToTakesTable extends Migration
             $table->increments("id");
             $table->integer("total_take");
             $table->string("specie_name",255);
-            $table->integer("food_id")->index();
+            $table->integer("food_id")->unsigned()->index();
             $table->integer("farmer_id")->index();
-            $table->foreign("food_id")->references("id")->on("foods");
-            $table->foreign("farmer_id")->references("id")->on("famers")->onDelete("cascade");
+            $table->foreign("food_id")->references("id")->on("food");
+            $table->foreign("farmer_id")->references("id")->on("farmers")->onDelete("cascade");
             $table->timestamps();
         });
     }

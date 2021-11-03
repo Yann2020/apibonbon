@@ -18,9 +18,9 @@ class CreateSlaughtersTable extends Migration
             $table->integer("quantity");
             $table->string("specie_name",200);
             $table->string("reason",200);
-            $table->text("description")->nullable()->default(null);
+            $table->text("description")->nullable();
             $table->integer("farmer_id")->index();
-            $table->integer("stock_items_to_sale_id")->index();
+            $table->integer("stock_items_to_sale_id")->unsigned()->index();
             $table->foreign("farmer_id")->references("id")->on("farmers");
             $table->foreign("stock_items_to_sale_id")->references("id")->on("stock_items_to_sales")->cascadeOnDelete();
             $table->date("slaughter_day");

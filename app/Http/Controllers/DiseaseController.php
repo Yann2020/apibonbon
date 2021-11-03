@@ -16,7 +16,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $disease = Disease::with("farmer","healthSchedule")->orderByDesc()->get();
+        $disease = Disease::orderByDesc("created_at")->get();
         return response()->json($disease);
     }
 
@@ -41,7 +41,7 @@ class DiseaseController extends Controller
      */
     public function show(Disease $disease)
     {
-        return response()->json($disease->with("farmer","healthSchedule")->first());
+        return response()->json($disease->with("farmer","healthSchedule")->find($disease));
     }
 
     /**

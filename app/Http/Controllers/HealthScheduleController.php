@@ -67,15 +67,15 @@ class HealthScheduleController extends Controller
      */
     public function show(HealthSchedule $healthSchedule)
     {
-        $healthSchedule = $healthSchedule->with("farmer,disease","status_schedule","batches")->first();
+        $healthSchedule = $healthSchedule->with("farmer","disease","status_schedule","batches")->find($healthSchedule->id);
 
         if($healthSchedule->type == "vaccination"){
-            $vaccination = Vaccination::find($healthSchedule->id)->firstOrfail();
-            $healthSchedule.array_push($vaccination);
+            $vaccination = Vaccination::find($healthSchedule->id);
+            $healthSchedule = array($healthSchedule,$vaccination);
         }
         else{
-            $medication = Medication::find($healthSchedule->id)->firstOrfail();
-            $healthSchedule.array_push($medication);
+            $medication = Medication::find($healthSchedule->id);
+            $healthSchedule = array($healthSchedule,$medication);
         }
         return response()->json($healthSchedule);
     }
