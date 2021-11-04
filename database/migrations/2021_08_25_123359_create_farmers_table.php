@@ -19,6 +19,7 @@ class CreateFarmersTable extends Migration
             $table->integer("specie_id")->unsigned()->index();
             $table->foreign("admin_id")->references("id")->on("admins")->onDelete("cascade");
             $table->foreign("specie_id")->references("id")->on("species")->onDelete("cascade");
+            $table->timestamps();
         });
     }
 
