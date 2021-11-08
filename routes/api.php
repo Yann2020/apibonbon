@@ -35,6 +35,7 @@ Route::apiResources([
     "mortality" => "MortalityController",
     "sale" => "SaleController",
     "slaughter" => "SlaughtersController",
+    "supplier" => "SupplierController",
     "specie" => "SpecieController",
     "stateSchedule" => "StatusScheduleController",
     "stockItemsToSale" => "StockItemsToSaleController",

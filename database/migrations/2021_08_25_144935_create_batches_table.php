@@ -22,7 +22,6 @@ class CreateBatchesTable extends Migration
             $table->integer("specie_id")->unsigned()->index();
             $table->integer("total");
             $table->integer("cost_per_animal"); # this represent the unit purchase cost by animal  
-            $table->string("supplier",255);
             $table->text("description")->nullable();
             $table->integer("supplier_id")->unsigned()->index();
             #$table->string("status",200);  can be active or disable 
