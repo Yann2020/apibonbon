@@ -40,7 +40,7 @@ class BatcheController extends Controller
     public function show(Batche $batche)
     {
         # to complete later within the with method (,"itemsToTake","mortalities","avgAnimalWeight","healtSchedule","stockItemsToSale","slaughter")
-        $batche = $batche->with("admin","specie","breed")->find($batche->id);
+        $batche = $batche->with("admin","specie","breed","supplier","mortalities","slaughter","avgAnimalWeight","healthSchedule","stockItemsToSale","itemsToTake")->find($batche->id);
         return response()->json($batche);
     }
 

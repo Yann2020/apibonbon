@@ -12,4 +12,9 @@ class Supplier extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function batche()
+    {
+        return $this->hasMany(Batche::class);
+    }
 }
