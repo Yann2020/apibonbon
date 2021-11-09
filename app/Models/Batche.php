@@ -48,7 +48,7 @@ class Batche extends Model
 
     public function stockItemsToSale()
     {
-        return $this->belongsToMany(StockItemsToSale::class,"batches_stock_items_to_sales","batche_id","stock_items_to_sale");
+        return $this->belongsToMany(StockItemsToSale::class,"batches_stock_items_to_sales","batche_id","stock_items_to_sale_id");
     }
 
     public function slaughter()
