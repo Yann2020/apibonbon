@@ -53,11 +53,11 @@ class Batche extends Model
 
     public function slaughter()
     {
-        return $this->belongsToMany(Slaughters::class);
+        return $this->belongsToMany(Slaughters::class,'batches_slaughters');
     }
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class,'batches_slaughters');
+        return $this->belongsTo(Supplier::class);
     }
 }
