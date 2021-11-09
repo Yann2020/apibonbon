@@ -19,6 +19,6 @@ class Slaughters extends Model
     
     public function batche()
     {
-        return $this->belongsToMany(Batche::class);
+        return $this->belongsToMany(Batche::class,'batches_slaughters','batche_id','slaughter_id');
     }
 }

@@ -14,7 +14,7 @@ class BatcheController extends Controller
      */
     public function index()
     {
-        $batches = Batche::with("specie")->orderByDesc("created_at")->get();
+        $batches = Batche::with("admin","specie","breed","supplier","mortalities","slaughter","avgAnimalWeight","healthSchedule","stockItemsToSale","itemsToTake")->orderByDesc("created_at")->get();
         return response()->json($batches);
     }
 
