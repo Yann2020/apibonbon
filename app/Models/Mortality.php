@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Mortality extends Model
 {
-    protected $fillable = ["id","number","causes","specie_name","batche_id","farmer_id"];
+    protected $fillable = ["id","number","cause","specie_name","batche_id","farmer_id"];
     
 
     public function farmer()
