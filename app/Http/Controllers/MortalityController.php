@@ -35,10 +35,12 @@ class MortalityController extends Controller
         $totalReduction = (int)$request->input('number');
         $totalReduction = (int)$batche->total < $totalReduction ? (int)$batche->totala - $totalReduction : '';
 
-        if(!empty($totalReduction) && Mortality::create($request->all()))
-            $batche->update(['total'=>$totalReduction]);
-            return response()->json(self::SUCCESS);
-        return response()->json(self::FAILURE);
+        if(!empty($totalReduction))
+            if(Mortality::create($request->all())) 
+                $batche->update(['total'=>$totalReduction]);
+                return response()->json(self::SUCCESS);
+            return response()->json(self::FAILURE);
+        return response()->json(['status'=>'the total available animal is less than reduction']);
     }
 
     /**

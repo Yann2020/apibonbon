@@ -33,6 +33,7 @@ Route::apiResources([
     "itemsToTake" => "ItemsToTakeController",
     "medication" => "MedicationController",
     "mortality" => "MortalityController",
+    "statusSchedule" => "StatusScheduleController",
     "sale" => "SaleController",
     "slaughter" => "SlaughtersController",
     "supplier" => "SupplierController",
@@ -40,5 +41,5 @@ Route::apiResources([
     "stateSchedule" => "StatusScheduleController",
     "stockItemsToSale" => "StockItemsToSaleController",
     "vaccination" => "VaccinationController",
-    "avgAnimalWeight" => "AvgAnimalWeightController"
+    "avgAnimalWeight" => "AvgAnimalWeightController",
 ]);
