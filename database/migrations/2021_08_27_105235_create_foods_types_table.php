@@ -18,6 +18,7 @@ class CreateFoodsTypesTable extends Migration
             $table->string("name");
             $table->integer("admin_id")->index();
             $table->foreign("admin_id")->references("id")->on("admins");
+            $table->timestamps();
         });
     }
 
