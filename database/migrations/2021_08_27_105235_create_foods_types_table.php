@@ -15,7 +15,7 @@ class CreateFoodsTypesTable extends Migration
     {
         Schema::create('foods_types', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("name");
+            $table->string("name")->unique();
             $table->integer("admin_id")->index();
             $table->foreign("admin_id")->references("id")->on("admins");
             $table->timestamps();

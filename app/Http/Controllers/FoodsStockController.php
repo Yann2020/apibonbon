@@ -17,7 +17,7 @@ class FoodsStockController extends Controller
      */
     public function index()
     {
-        $foodsStock = FoodsStock::with("admin","food","foodTye")->orderByDesc("created_at")->get();
+        $foodsStock = FoodsStock::with("admin","food")->get();
         return response()->json($foodsStock,200);
     }
 
