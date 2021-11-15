@@ -15,7 +15,7 @@ class Food extends Model
 
     public function foodStock()
     {
-        return $this->hasMany(FoodsStock::class);
+        return $this->hasOne(FoodsStock::class);
     }
 
     public function itemsToTake()

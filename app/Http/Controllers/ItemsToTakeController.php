@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemsToTake;
+use App\Models\Food;
+use App\Models\FoodsStock;
 use Illuminate\Http\Request;
 
 class ItemsToTakeController extends Controller
@@ -34,10 +36,20 @@ class ItemsToTakeController extends Controller
          * il faudra créer une boucle de création des éléments au cas ou le fermier veut prendre plusieurs aliments
          * il faudra aussi ceéer une autre boucle pour l'enregistrement dans la table pivot 
          */
-
+        $total_take = (int) $request->input('total_take');
+        $foodStock = FoodsStock::where('food_id', (int)$request->input('food_id'))->get();
+        if((int)$foodStock->quantity > 0 or (int)$foodStock->quantity > $total_take):
+            $actaul_stock = (int) $foodStock->quantity - $total_take;
+            $foodStock->update(['quantity' => $actaul_stock]);
+        else:
+            return response()->json(['status' => 'failure','message' => 'your request can\'t not complete cause, your reduction is more big than the availible quantity']);
+        endif;
+        
         if(ItemsToTake::create($request->all()))
             $latestSave = ItemsToTake::latest()->first();
             $latestSave->batches()->attach($request->input('batche_id'));
+            return response()->json(self::SUCCESS);
+        return response()->json(self::FAILURE);
     }
 
     /**
