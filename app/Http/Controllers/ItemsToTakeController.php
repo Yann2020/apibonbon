@@ -31,11 +31,6 @@ class ItemsToTakeController extends Controller
      */
     public function store(Request $request)
     {
-        /**
-         * PROBLEMES :
-         * il faudra créer une boucle de création des éléments au cas ou le fermier veut prendre plusieurs aliments
-         * il faudra aussi ceéer une autre boucle pour l'enregistrement dans la table pivot 
-         */
         $total_take = (int) $request->input('total_take');
         $foodStock = FoodsStock::where('food_id', (int)$request->input('food_id'))->first();
         if((int)$foodStock->quantity > 0 or (int)$foodStock->quantity > $total_take):

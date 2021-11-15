@@ -51,6 +51,7 @@ class HealthScheduleController extends Controller
                     "medicated_by" => $request->input("medicated_by") 
                 ]);
             endif;
+            $healthSchedule->batches()->attach((int)$request->input('batche_id'));
 
             return response()->json(self::SUCCESS);
         return response()->jsonp(self::FAILURE);
