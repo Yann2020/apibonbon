@@ -18,7 +18,7 @@ class FoodsStockController extends Controller
     public function index()
     {
         $foodsStock = FoodsStock::with("admin","food")->get();
-        return response()->json($foodsStock,200);
+        return response()->json($foodsStock);
     }
 
     /**

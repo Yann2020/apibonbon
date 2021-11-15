@@ -37,7 +37,7 @@ class ItemsToTakeController extends Controller
          * il faudra aussi ceéer une autre boucle pour l'enregistrement dans la table pivot 
          */
         $total_take = (int) $request->input('total_take');
-        $foodStock = FoodsStock::where('food_id', (int)$request->input('food_id'))->get();
+        $foodStock = FoodsStock::where('food_id', (int)$request->input('food_id'))->first();
         if((int)$foodStock->quantity > 0 or (int)$foodStock->quantity > $total_take):
             $actaul_stock = (int) $foodStock->quantity - $total_take;
             $foodStock->update(['quantity' => $actaul_stock]);
