@@ -18,7 +18,7 @@ class ItemsToTakeController extends Controller
      */
     public function index()
     {
-        return response()->json(ItemsToTake::orderByDesc()->get());
+        return response()->json(ItemsToTake::orderByDesc('created_at')->get());
     }
 
     /**
@@ -34,6 +34,10 @@ class ItemsToTakeController extends Controller
          * il faudra créer une boucle de création des éléments au cas ou le fermier veut prendre plusieurs aliments
          * il faudra aussi ceéer une autre boucle pour l'enregistrement dans la table pivot 
          */
+
+        if(ItemsToTake::create($request->all()))
+            $latestSave = ItemsToTake::latest()->first();
+            $latestSave->batches()->attach($request->input('batche_id'));
     }
 
     /**

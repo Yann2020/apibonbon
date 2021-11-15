@@ -41,9 +41,10 @@ class FoodsTypeController extends Controller
      * @param  \App\Models\FoodsType  $foodsType
      * @return \Illuminate\Http\Response
      */
-    public function show(FoodsType $foodsType)
+    public function show(int $id)
     {
-        return response()->json($foodsType->find($foodsType->id));
+        $foodsType = FoodsType::with('foodStock','admin')->find($id);
+        return response()->json($foodsType);
     }
 
     /**

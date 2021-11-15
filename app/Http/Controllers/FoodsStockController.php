@@ -37,12 +37,12 @@ class FoodsStockController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\FoodsStock  $foodsStock
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(FoodsStock $foodsStock)
+    public function show(int $id)
     {
-        $foodsStock = $foodsStock->with("admin","foodType","food")->findOrFail($foodsStock->id);
+        $foodsStock = FoodsStock::with("admin","foodType","food")->findOrFail($id);
         return response()->json($foodsStock);
     }
 
