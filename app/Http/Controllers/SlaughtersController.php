@@ -37,6 +37,8 @@ class SlaughtersController extends Controller
         // Get the actual specie_id from the specie name
         $specie_id = (int) Specie::where('name',(string)$request->input('specie_name'))->value('id');
 
+        $request->input('stock_items_to_sale_id', $specie_id);
+
         //Get the specific itemsToSale id
         $itemsToSale_id = (int)ItemsToSale::where('specie_id', $specie_id)->where('name', 'freezing')->value('id');
 
