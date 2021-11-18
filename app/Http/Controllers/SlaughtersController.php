@@ -43,7 +43,7 @@ class SlaughtersController extends Controller
         $itemsToSale_id = (int)ItemsToSale::where('specie_id', $specie_id)->where('name', 'freezing')->value('id');
 
         // get the specific stock for this slaughter
-        $stockItemsToSale = StockItemsToSale::where('items_to_sale', $itemsToSale_id)->first();
+        $stockItemsToSale = StockItemsToSale::where('items_to_sale_id', $itemsToSale_id)->first();
         
         $batche = Batche::find((int)$request->input('batche_id'));
         if((int)$batche->total >= (int)$request->input('quantity')):
