@@ -26,7 +26,7 @@ class AvgAnimalWeightController extends Controller
      */
     public function store(Request $request)
     {
-        $overallAverage = ($request->input("max_animal_weight") + $request->input("min_animal_weight")) / 2;
+        $overallAverage = ((float)$request->input("max_animal_weight") + (float)$request->input("min_animal_weight")) / 2;
 
         if(AvgAnimalWeight::create([
             "max_animal_weight" => $request->input("max_animal_weight"),
