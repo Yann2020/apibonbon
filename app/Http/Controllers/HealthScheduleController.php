@@ -41,14 +41,14 @@ class HealthScheduleController extends Controller
                     "id" => $healthSchedule->id,
                     "name" => $request->input("name"),
                     "animal_numbers" => $request->input("animal_numbers"),
-                    "vaccinated_by" => $request->input("vaccinated_by")
+                    "vaccinated_by" => $request->input("nurse")
                 ]);
             elseif($request->input("type") == "medication"):
                 Medication::create([
                     "id" => $healthSchedule->id,
                     "name" => $request->input("name"),
                     "animal_numbers" => $request->input("animal_numbers"),
-                    "medicated_by" => $request->input("medicated_by") 
+                    "medicated_by" => $request->input("nurse") 
                 ]);
             endif;
             $healthSchedule->batches()->attach((int)$request->input('batche_id'));

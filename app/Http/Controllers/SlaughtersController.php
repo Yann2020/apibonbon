@@ -78,12 +78,12 @@ class SlaughtersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Slaughters  $slaughters
+     * @param  Int id
      * @return \Illuminate\Http\Response
      */
-    public function show(Slaughters $slaughters)
+    public function show(int $id)
     {
-        $slaughters = $slaughters->with("farmer","stock","batche")->find($slaughters->id);
+        $slaughters = Slaughters::with("farmer","stock","batche")->find($id);
         return response()->json($slaughters);
     }
 
