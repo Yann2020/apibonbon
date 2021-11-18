@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slaughters extends Model
 {
-    protected $fillable = ["id","quantity","specie_name","reason","description","farmer_id","stock_items_to_sale_id"];
+    protected $fillable = ["id","quantity","specie_name","reason","description","farmer_id","stock_items_to_sale_id","slaughter_day"];
 
     public function farmer()
     {

@@ -49,7 +49,8 @@ class SlaughtersController extends Controller
             'reason' => $request->input('reason'),
             'description' => $request->input('description'),
             'farmer_id'=> (int)$request->input('farmer_id'),
-            'stock_items_to_sale_id' => (int)$stockItemsToSale->id
+            'stock_items_to_sale_id' => (int)$stockItemsToSale->id,
+            'slaughter_day' => $request->input('slaughter_day')
         ];
 
         $batche = Batche::find((int)$request->input('batche_id'));
