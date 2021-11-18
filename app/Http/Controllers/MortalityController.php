@@ -33,8 +33,10 @@ class MortalityController extends Controller
     {
         $batche_id = (int)$request->input('batche_id');
         $batche = Batche::find($batche_id);
-        $totalReduction = (int)$request->input('number');
-        $totalReduction = (int)$batche->total <= $totalReduction ? (int)$batche->totala - $totalReduction : '';
+
+        if((int)$batche->total <= (int)$request->input('number'))
+            $totalReduction = (int)$request->input('number');
+            $totalReduction = (int)$batche->total - $totalReduction;
 
         $toRegister = [
             'number' => (int)$request->input('number'),
@@ -44,14 +46,14 @@ class MortalityController extends Controller
             'farmer_id' => (int) $request->input('farmer_id')
         ];
 
-        if(!empty($totalReduction) or $totalReduction != null){
+        if(!isset($totalReduction) && !empty($totalReduction)){
             if(Mortality::create($toRegister)){  
                 $batche->update(['total'=>$totalReduction]);
                 return response()->json(self::SUCCESS);
             }
             return response()->json(self::FAILURE);
         }
-        return response()->json(['status'=>'the total available animal is less than reduction'.$totalReduction]);
+        return response()->json(['status'=>'the total available animal is less than reduction '.$batche->total]);
     }
 
     /**
