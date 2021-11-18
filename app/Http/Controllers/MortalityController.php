@@ -31,7 +31,7 @@ class MortalityController extends Controller
      */
     public function store(Request $request)
     {
-        $batche = Batche::find((int)$request->input('batche_id'));
+        $batche = Batche::find($request->input('batche_id'));
         $totalReduction = (int)$request->input('number');
         $totalReduction = (int)$batche->total < $totalReduction ? (int)$batche->totala - $totalReduction : 0;
 
