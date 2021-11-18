@@ -47,7 +47,7 @@ class MortalityController extends Controller
             'farmer_id' => (int) $request->input('farmer_id')
         ];
 
-        if(!isset($totalReduction) && !empty($totalReduction)){
+        if(isset($totalReduction) && !empty($totalReduction)){
             if(Mortality::create($toRegister)){  
                 $batche->update(['total'=>$totalReduction]);
                 return response()->json(self::SUCCESS);
