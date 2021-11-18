@@ -51,7 +51,7 @@ class MortalityController extends Controller
             }
             return response()->json(self::FAILURE);
         }
-        return response()->json(['status'=>'the total available animal is less than reduction']);
+        return response()->json(['status'=>'the total available animal is less than reduction'.$totalReduction]);
     }
 
     /**
