@@ -37,14 +37,21 @@ class SlaughtersController extends Controller
         // Get the actual specie_id from the specie name
         $specie_id = (int) Specie::where('name',(string)$request->input('specie_name'))->value('id');
 
-        $request->input('stock_items_to_sale_id', $specie_id);
-
         //Get the specific itemsToSale id
         $itemsToSale_id = (int)ItemsToSale::where('specie_id', $specie_id)->where('name', 'freezing')->value('id');
 
         // get the specific stock for this slaughter
         $stockItemsToSale = StockItemsToSale::where('items_to_sale_id', $itemsToSale_id)->first();
         
+        $toRegister = [
+            'quantity' => $request->input('quantity'),
+            'specie_name' => $request->input('specie_name'),
+            'reason' => $request->input('reason'),
+            'description' => $request->input('description'),
+            'farmer_id'=> (int)$request->input('farmer_id'),
+            'stock_items_sale_id' => (int)$stockItemsToSale->id
+        ];
+
         $batche = Batche::find((int)$request->input('batche_id'));
         if((int)$batche->total >= (int)$request->input('quantity')):
             // Reduct the total number of alive animals
@@ -54,7 +61,7 @@ class SlaughtersController extends Controller
                 $toAdd = (int)$stockItemsToSale->quantity + (int)$request->input('quantity');
                 $stockItemsToSale->update(['quantity' => $toAdd]);
                 //Store a newly created Slaughter
-                if(Slaughters::create($request->all()))
+                if(Slaughters::create($toRegister))
                     $slaughters = Slaughters::latest()->first();
                     $slaughters->batche()->attach((int)$request->input('batche_id'));
                     return response()->json(self::SUCCESS);
