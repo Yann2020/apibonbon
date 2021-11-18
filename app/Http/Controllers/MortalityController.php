@@ -31,14 +31,14 @@ class MortalityController extends Controller
      */
     public function store(Request $request)
     {
-        $batche = Batche::find($request->input('batche_id'));
+        $batche = Batche::find((int)$request->input('batche_id'));
         $totalReduction = (int)$request->input('number');
-        $totalReduction = (int)$batche->total < $totalReduction ? (int)$batche->totala - $totalReduction : '';
+        $totalReduction = (int)$batche->total < $totalReduction ? (int)$batche->totala - $totalReduction : 0;
 
         if(!empty($totalReduction))
             if(Mortality::create($request->all())) 
                 $batche->update(['total'=>$totalReduction]);
-                return response()->json(self::SUCCESS.array_push($batche));
+                return response()->json(array_push(self::SUCCESS, $batche));
             return response()->json(self::FAILURE);
         return response()->json(['status'=>'the total available animal is less than reduction']);
     }
