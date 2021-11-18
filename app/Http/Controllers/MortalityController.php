@@ -38,7 +38,7 @@ class MortalityController extends Controller
         if(!empty($totalReduction))
             if(Mortality::create($request->all())) 
                 $batche->update(['total'=>$totalReduction]);
-                return response()->json(array_push(self::SUCCESS, $batche));
+                return response()->json(self::SUCCESS);
             return response()->json(self::FAILURE);
         return response()->json(['status'=>'the total available animal is less than reduction']);
     }
