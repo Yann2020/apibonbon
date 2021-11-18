@@ -34,7 +34,7 @@ class MortalityController extends Controller
         $batche_id = (int)$request->input('batche_id');
         $batche = Batche::find($batche_id);
 
-        if((int)$batche->total <= (int)$request->input('number')){ 
+        if((int)$batche->total >= (int)$request->input('number')){ 
             $reduction = (int)$request->input('number');
             $totalReduction = (int)$batche->total - $reduction;
         }
