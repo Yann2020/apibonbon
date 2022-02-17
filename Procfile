@@ -1,1 +1,1 @@
-web: vendor/bin/sail up ./
+web:
