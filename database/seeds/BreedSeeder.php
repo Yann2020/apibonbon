@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Breed;
 
 class BreedSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class BreedSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Breed::factory()->count(20)->create();
     }
 }

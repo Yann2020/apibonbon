@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Farmer;
 
 class FarmerSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class FarmerSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Farmer::factory()->count(20)->create();
     }
 }

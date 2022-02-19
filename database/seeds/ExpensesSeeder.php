@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Expenses;
 
 class ExpensesSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class ExpensesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Expenses::factory()->count(20)->create();
     }
 }

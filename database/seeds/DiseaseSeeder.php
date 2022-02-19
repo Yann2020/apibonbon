@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Disease;
 
 class DiseaseSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class DiseaseSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Disease::factory()->count(20)->create();
     }
 }
