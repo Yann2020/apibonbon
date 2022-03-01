@@ -14,6 +14,7 @@ class CreateBatchesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('batches');
         Schema::create('batches', function (Blueprint $table) {
             $table->increments("id");
             $table->string("name",255);

@@ -13,6 +13,7 @@ class CreateFarmersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('farmers');
         Schema::create('farmers', function (Blueprint $table) {
             $table->integer("id")->primary();
             $table->integer("admin_id")->unsigned()->index();
